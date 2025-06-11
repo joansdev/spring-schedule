@@ -1,5 +1,6 @@
 package com.example.springschedule.domain.schedule.entity;
 
+import com.example.springschedule.domain.schedule.common.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,7 +13,7 @@ import java.time.LocalDateTime;
 @Getter
 @NoArgsConstructor
 @Table(name = "schedule")
-public class Schedule {
+public class Schedule extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,19 +28,11 @@ public class Schedule {
     @Column(nullable = false)
     private String contents;
 
-    @Column(nullable = false, updatable = false)
-    private LocalDateTime createdAt;
-
-    @Column(nullable = false)
-    private LocalDateTime updatedAt;
-
-
-    public Schedule(String name, String title, String contents, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public Schedule(String name, String title, String contents) {
         this.name = name;
         this.title = title;
         this.contents = contents;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
+
     }
 
 }
