@@ -2,12 +2,8 @@ package com.example.springschedule.domain.schedule.entity;
 
 import com.example.springschedule.domain.schedule.common.BaseEntity;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.cglib.core.Local;
-
-import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -32,7 +28,6 @@ public class Schedule extends BaseEntity {
         this.name = name;
         this.title = title;
         this.contents = contents;
-
     }
 
 }

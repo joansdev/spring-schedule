@@ -15,11 +15,16 @@ public class ScheduleService {
 
     public ScheduleResponse createSchedule(String name, String title, String contents) {
 
-
-        Schedule newSchedule = new Schedule(name, title, contents);
+        final Schedule newSchedule = new Schedule(name, title, contents);
 
         Schedule savedSchedule = scheduleRepository.save(newSchedule);
 
         return ScheduleResponse.of(savedSchedule);
+    }
+
+    public ScheduleResponse getSchedule(Long id) {
+        Schedule schedule = scheduleRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Does not exist schedule"));
+        return ScheduleResponse.of(schedule);
     }
 }
