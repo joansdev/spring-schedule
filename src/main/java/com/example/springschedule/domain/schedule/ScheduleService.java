@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -26,5 +27,11 @@ public class ScheduleService {
         Schedule schedule = scheduleRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Does not exist schedule"));
         return ScheduleResponse.of(schedule);
+    }
+
+    public List<ScheduleResponse> getAllSchedules() {
+        List<Schedule> allScheduls = scheduleRepository.findAll();
+
+        return allScheduls.stream().map(ScheduleResponse::of).toList();
     }
 }

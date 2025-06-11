@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/v1")
 @RequiredArgsConstructor
@@ -22,5 +24,10 @@ public class ScheduleController {
     @GetMapping("/schedules/{scheduleId}")
     public ScheduleResponse getSchedule(@PathVariable Long scheduleId) {
         return scheduleService.getSchedule(scheduleId);
+    }
+
+    @GetMapping("/schedules")
+    public List<ScheduleResponse> getAllSchedules() {
+        return scheduleService.getAllSchedules();
     }
 }
