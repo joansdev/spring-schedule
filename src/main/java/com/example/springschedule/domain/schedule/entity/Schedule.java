@@ -2,6 +2,7 @@ package com.example.springschedule.domain.schedule.entity;
 
 import com.example.springschedule.domain.schedule.common.BaseEntity;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -24,6 +25,7 @@ public class Schedule extends BaseEntity {
     @Column(nullable = false)
     private String contents;
 
+    @Builder
     public Schedule(String name, String title, String contents) {
         this.name = name;
         this.title = title;
