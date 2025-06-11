@@ -1,11 +1,17 @@
 package com.example.springschedule.domain.schedule.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.springframework.cglib.core.Local;
 
 import java.time.LocalDateTime;
 
 @Entity
+@Getter
+@NoArgsConstructor
+@Table(name = "schedule")
 public class Schedule {
 
     @Id
@@ -22,10 +28,18 @@ public class Schedule {
     private String contents;
 
     @Column(nullable = false, updatable = false)
-    private LocalDateTime createAt;
+    private LocalDateTime createdAt;
 
     @Column(nullable = false)
     private LocalDateTime updatedAt;
 
+
+    public Schedule(String name, String title, String contents, LocalDateTime createdAt, LocalDateTime updatedAt) {
+        this.name = name;
+        this.title = title;
+        this.contents = contents;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+    }
 
 }
