@@ -13,10 +13,11 @@ public class UserService {
     private final UserRepository userRepository;
 
     @Transactional
-    public UserResponse createUser(String name, String email) {
+    public UserResponse createUser(String name, String email, String password) {
         User user = User.builder()
                 .name(name)
                 .email(email)
+                .password(password)
                 .build();
         User savedUser = userRepository.save(user);
         return UserResponse.of(savedUser);
