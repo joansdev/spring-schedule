@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -30,9 +31,8 @@ public class ScheduleService {
         return ScheduleResponse.of(savedSchedule);
     }
 
-    public ScheduleResponse getSchedule(Long id) {
-        Schedule schedule = scheduleRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Does not exist schedule"));
+    public ScheduleResponse getSchedule(Long scheduleId) {
+        Schedule schedule = getScheduleOrThrow(scheduleId);
         return ScheduleResponse.of(schedule);
     }
 
@@ -45,8 +45,7 @@ public class ScheduleService {
 
     @Transactional
     public ScheduleResponse updateSchedule(Long scheduleId, String name, String title, String contents) {
-        Schedule schedule = scheduleRepository.findById(scheduleId)
-                .orElseThrow(() -> new IllegalArgumentException("Does not exist schedule"));
+        Schedule schedule = getScheduleOrThrow(scheduleId);
 
         schedule.edit(name, title, contents);
 
@@ -57,8 +56,12 @@ public class ScheduleService {
 
     @Transactional
     public void deleteSchedule(Long scheduleId) {
-        Schedule schedule = scheduleRepository.findById(scheduleId)
-                .orElseThrow(() -> new IllegalArgumentException("Does not exist schedule"));
+        Schedule schedule = getScheduleOrThrow(scheduleId);
         scheduleRepository.delete(schedule);
+    }
+
+    private Schedule getScheduleOrThrow(Long scheduleId) {
+        return scheduleRepository.findById(scheduleId)
+                .orElseThrow(() -> new IllegalArgumentException("Does not exist schedule"));
     }
 }
