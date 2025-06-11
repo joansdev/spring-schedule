@@ -1,15 +1,12 @@
 package com.example.springschedule.domain.schedule;
 
-import com.example.springschedule.domain.schedule.dto.EditScheduleRequest;
 import com.example.springschedule.domain.schedule.dto.ScheduleResponse;
 import com.example.springschedule.domain.schedule.entity.Schedule;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -18,10 +15,10 @@ public class ScheduleService {
     private final ScheduleRepository scheduleRepository;
 
     @Transactional
-    public ScheduleResponse createSchedule(String name, String title, String contents) {
+    public ScheduleResponse createSchedule(Long userId, String title, String contents) {
 
         final Schedule newSchedule = Schedule.builder()
-                .name(name)
+                .userId(userId)
                 .title(title)
                 .contents(contents)
                 .build();
@@ -44,10 +41,10 @@ public class ScheduleService {
 
 
     @Transactional
-    public ScheduleResponse updateSchedule(Long scheduleId, String name, String title, String contents) {
+    public ScheduleResponse updateSchedule(Long scheduleId, Long userId, String title, String contents) {
         Schedule schedule = getScheduleOrThrow(scheduleId);
 
-        schedule.edit(name, title, contents);
+        schedule.edit(title, contents);
 
         Schedule savedSchedule = scheduleRepository.save(schedule);
 

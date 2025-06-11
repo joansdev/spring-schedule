@@ -17,7 +17,7 @@ public class Schedule extends BaseEntity {
     private Long id;
 
     @Column(nullable = false)
-    private String name; // 작성자 이름
+    private  Long userId; // 작성자 이름
 
     @Column(nullable = false)
     private String title;
@@ -26,14 +26,13 @@ public class Schedule extends BaseEntity {
     private String contents;
 
     @Builder
-    public Schedule(String name, String title, String contents) {
-        this.name = name;
+    public Schedule(Long userId, String title, String contents) {
+        this.userId = userId;
         this.title = title;
         this.contents = contents;
     }
 
-    public void edit(String name, String title, String contents) {
-        this.name = name;
+    public void edit(String title, String contents) {
         this.title = title;
         this.contents = contents;
     }

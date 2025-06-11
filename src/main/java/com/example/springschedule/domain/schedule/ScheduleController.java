@@ -19,7 +19,7 @@ public class ScheduleController {
 
     @PostMapping("/schedules")
     public ScheduleResponse createSchedule(@RequestBody CreateScheduleRequest requestDto) {
-        return scheduleService.createSchedule(requestDto.getName(), requestDto.getTitle(), requestDto.getContents());
+        return scheduleService.createSchedule(requestDto.getUserId(), requestDto.getTitle(), requestDto.getContents());
     }
 
     @GetMapping("/schedules/{scheduleId}")
@@ -37,7 +37,7 @@ public class ScheduleController {
             @PathVariable Long scheduleId,
             @RequestBody EditScheduleRequest requestDto
     ) {
-        return scheduleService.updateSchedule(scheduleId, requestDto.getName(), requestDto.getTitle(), requestDto.getContents());
+        return scheduleService.updateSchedule(scheduleId, requestDto.getUserId(), requestDto.getTitle(), requestDto.getContents());
     }
 
     @DeleteMapping("/schedules/{scheduleId}")
