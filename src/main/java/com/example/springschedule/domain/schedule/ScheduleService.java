@@ -5,6 +5,7 @@ import com.example.springschedule.domain.schedule.dto.ScheduleResponse;
 import com.example.springschedule.domain.schedule.entity.Schedule;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -15,6 +16,7 @@ public class ScheduleService {
 
     private final ScheduleRepository scheduleRepository;
 
+    @Transactional
     public ScheduleResponse createSchedule(String name, String title, String contents) {
 
         final Schedule newSchedule = new Schedule(name, title, contents);
@@ -37,6 +39,7 @@ public class ScheduleService {
     }
 
 
+    @Transactional
     public ScheduleResponse updateSchedule(Long scheduleId, String name, String title, String contents) {
         Schedule schedule = scheduleRepository.findById(scheduleId)
                 .orElseThrow(() -> new IllegalArgumentException("Does not exist schedule"));
@@ -48,6 +51,7 @@ public class ScheduleService {
         return ScheduleResponse.of(savedSchedule);
     }
 
+    @Transactional
     public void deleteSchedule(Long scheduleId) {
         Schedule schedule = scheduleRepository.findById(scheduleId)
                 .orElseThrow(() -> new IllegalArgumentException("Does not exist schedule"));
