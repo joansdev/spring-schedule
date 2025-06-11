@@ -1,5 +1,6 @@
 package com.example.springschedule.domain.schedule;
 
+import com.example.springschedule.domain.schedule.dto.EditScheduleRequest;
 import com.example.springschedule.domain.schedule.dto.ScheduleResponse;
 import com.example.springschedule.domain.schedule.entity.Schedule;
 import lombok.RequiredArgsConstructor;
@@ -33,5 +34,17 @@ public class ScheduleService {
         List<Schedule> allScheduls = scheduleRepository.findAll();
 
         return allScheduls.stream().map(ScheduleResponse::of).toList();
+    }
+
+
+    public ScheduleResponse updateSchedule(Long scheduleId, String name, String title, String contents) {
+        Schedule schedule = scheduleRepository.findById(scheduleId)
+                .orElseThrow(() -> new IllegalArgumentException("Does not exist schedule"));
+
+        schedule.edit(name, title, contents);
+
+        Schedule savedSchedule = scheduleRepository.save(schedule);
+
+        return ScheduleResponse.of(savedSchedule);
     }
 }

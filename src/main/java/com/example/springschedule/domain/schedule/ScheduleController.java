@@ -2,6 +2,7 @@ package com.example.springschedule.domain.schedule;
 
 
 import com.example.springschedule.domain.schedule.dto.CreateScheduleRequest;
+import com.example.springschedule.domain.schedule.dto.EditScheduleRequest;
 import com.example.springschedule.domain.schedule.dto.ScheduleResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -29,5 +30,13 @@ public class ScheduleController {
     @GetMapping("/schedules")
     public List<ScheduleResponse> getAllSchedules() {
         return scheduleService.getAllSchedules();
+    }
+
+    @PutMapping("/schedules/{scheduleId}")
+    public ScheduleResponse updateSchedule(
+            @PathVariable Long scheduleId,
+            @RequestBody EditScheduleRequest requestDto
+    ) {
+        return scheduleService.updateSchedule(scheduleId, requestDto.getName(), requestDto.getTitle(), requestDto.getContents());
     }
 }
