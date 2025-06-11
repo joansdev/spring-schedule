@@ -47,4 +47,10 @@ public class ScheduleService {
 
         return ScheduleResponse.of(savedSchedule);
     }
+
+    public void deleteSchedule(Long scheduleId) {
+        Schedule schedule = scheduleRepository.findById(scheduleId)
+                .orElseThrow(() -> new IllegalArgumentException("Does not exist schedule"));
+        scheduleRepository.delete(schedule);
+    }
 }
